@@ -1,6 +1,12 @@
 import discord
 from discord.ext import commands
 
+import asyncio
+
+drive_lock = asyncio.Lock()
+
+from tools.spotifyDownloader import get_track, download_song
+
 from dotenv import load_dotenv
 import os
 
@@ -35,5 +41,12 @@ async def on_message(message):
 @bot.tree.command(name="ping", description="Replies with Pong!")
 async def ping(interaction: discord.Interaction):
     await interaction.response.send_message('Pong!')
+
+@bot.tree.command(name="download", description="Download a song, album or playlist from Spotify")
+async def download(interaction: discord.Interaction, url: str):
+    await interaction.response.send_message(f"Starting download for: {url}.\n This may take a while...")
+    async with drive_lock:
+        publicLink = await asyncio.to_thread(get_track, url, usr=interaction.user.name)
+    await interaction.followup.send(f"Download complete!\n Here is your download link: {publicLink}")
 
 bot.run(TOKEN)

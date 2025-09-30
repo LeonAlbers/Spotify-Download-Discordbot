@@ -1,2 +1,17 @@
+# Environment files
 .env
+google_drive_secret.json
+
+# MacOS system files
 .DS_Store
+
+# Python files
+.cache
+__pycache__
+
+# Google Drive API files
+token.pickle
+
+# Song files
+songs/*
+!songs/README.md
