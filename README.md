@@ -1,6 +1,8 @@
 # Spotify-Download-Discordbot
 
-Discordbot for downloading songs by their Spotify link
+Discord Bot for downloading songs by their Spotify link.
+
+It takes a link to a Spotify song, playlist or album and downloads the songs as .flac files. The downloaded files will be uploaded to Google Drive and the Bot will send link to the created folder.
 
 # How to install
 
