@@ -8,6 +8,7 @@ google_drive_secret.json
 # Python files
 .cache
 __pycache__
+.venv
 
 # Google Drive API files
 token.pickle
