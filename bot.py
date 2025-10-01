@@ -44,9 +44,14 @@ async def ping(interaction: discord.Interaction):
 
 @bot.tree.command(name="download", description="Download a song, album or playlist from Spotify")
 async def download(interaction: discord.Interaction, url: str):
-    await interaction.response.send_message(f"Starting download for: {url}.\n This may take a while...")
+    await interaction.response.defer(thinking=True)
+
+    await interaction.followup.send(f"⏳ Starting download for: {url}")
+
     async with drive_lock:
         publicLink = await asyncio.to_thread(get_track, url, usr=interaction.user.name)
-    await interaction.followup.send(f"Download complete!\n Here is your download link: {publicLink}")
+
+    # Abschlussnachricht
+    await interaction.followup.send(f"✅ Done!\nHere is your link: {publicLink}")
 
 bot.run(TOKEN)
