@@ -18,6 +18,30 @@ It takes a link to a Spotify song, playlist or album and downloads the songs as 
 
 6. To run the bot, start the bot.py file.
 
+# Virtual Environement
+
+A virtual environement can be used if you dont want the dependencies to be installed globaly. If you want to use this, you have to `create` it, start it and then you can run the install command (eg. `pip3 install --upgrade -r requirements.txt`).
+
+Need to know commands:
+
+`Create`
+
+```bash
+python3 -m venv .venv
+```
+
+`Start`
+
+```bash
+source .venv/bin/activate
+```
+
+`Stop`
+
+```bash
+deactivate
+```
+
 # Requirements
 
 - [Python3](https://www.python.org/)
@@ -62,8 +86,10 @@ It takes a link to a Spotify song, playlist or album and downloads the songs as 
 For installing all dependencies run:
 
 ```bash
-pip install --upgrade -r requirements.txt
+pip3 install --upgrade -r requirements.txt
 ```
+
+_Some people need to replace pip3 with pip_
 
 # Folder Structure
 
