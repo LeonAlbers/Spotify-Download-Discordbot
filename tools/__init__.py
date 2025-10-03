@@ -1,1 +1,1 @@
-print("Tools-Package loaded")
+print("\033[36m\033[1mTools-Package loaded\033[0m")

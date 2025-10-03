@@ -3,6 +3,7 @@ from googleapiclient.http import MediaFileUpload
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport import requests
 import os , pickle
+from tools.consoleStyling import fonts
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -37,7 +38,7 @@ def create_folder(name):
         'parents': [PARENT_FOLDER_ID] if PARENT_FOLDER_ID else []
     }
     folder = drive_service.files().create(body=folder_metadata, fields='id').execute()
-    print(f'Folder "{name}" created with ID: {folder.get("id")}')
+    print(f'{fonts.CYAN + fonts.BOLD}Folder "{name}" created with ID:{fonts.END} {folder.get("id")}')
     return folder.get('id')
 
 def list_folders():
@@ -46,9 +47,9 @@ def list_folders():
                                          fields='nextPageToken, files(id, name, parents)').execute()
     items = results.get('files', [])
     if not items:
-        print('No folders found.')
+        print(f'{fonts.RED + fonts.BOLD}No folders found.{fonts.END}')
     else:
-        print('Folders:')
+        print(f'{fonts.CYAN + fonts.BOLD}Folders:{fonts.END}')
         for item in items:
             print(f'{item["name"]} ({item["id"]})')
     return items
@@ -56,28 +57,28 @@ def list_folders():
 def delete_folder(folder_id):
     try:
         drive_service.files().delete(fileId=folder_id).execute()
-        print(f'Folder with ID: {folder_id} deleted successfully.')
+        print(f'{fonts.CYAN + fonts.BOLD}Folder with ID: {folder_id} deleted successfully.{fonts.END}')
     except Exception as e:
-        print(f'An error occurred: {e}')
+        print(f'{fonts.RED + fonts.BOLD}An error occurred:{fonts.END} {e}')
 
 def delete_all_folders():
     folders = list_folders()
     for folder in folders:
         if folder.get('parents') != None and folder['parents'][0] == PARENT_FOLDER_ID:
             delete_folder(folder['id'])
-    print("All folders deleted.")
+    print(f"{fonts.CYAN + fonts.BOLD}All folders deleted.{fonts.END}")
 
 def upload_file(file_path, folder_id):
-    print(f'Uploading file "{file_path}" to folder ID: {folder_id}')
+    print(f'{fonts.CYAN + fonts.BOLD}Uploading file{fonts.END} "{file_path}" to folder ID: {folder_id}')
     file_metadata = {
         'name': os.path.basename(file_path),
         'parents': [folder_id]
     }
     media = MediaFileUpload(file_path)
     file = drive_service.files().create(body=file_metadata, media_body=media, fields='id, name').execute()
-    print(f'File "{file_path}" uploaded to folder ID: {folder_id} with File ID: {file.get("id")}')
+    print(f'{fonts.CYAN + fonts.BOLD}Uploaded file{fonts.END} "{file_path}" to folder ID: {folder_id} with File ID: {file.get("id")}')
     os.remove(file_path)
-    print(f'Local file "{file_path}" deleted after upload.')
+    print(f'{fonts.CYAN + fonts.BOLD}Local file "{file_path}" deleted after upload.{fonts.END}')
     return file.get('id')
 
 def make_folder_public(folder_id):
@@ -86,7 +87,7 @@ def make_folder_public(folder_id):
         'role': 'reader',
     }
     drive_service.permissions().create(fileId=folder_id, body=permission).execute()
-    print(f'Folder with ID: {folder_id} is now public.')
+    print(f'{fonts.CYAN + fonts.BOLD}Folder with ID: {folder_id} is now public.{fonts.END}')
     folder = drive_service.files().get(fileId=folder_id, fields='webViewLink').execute()
-    print(f'Public link: {folder.get("webViewLink")}')
+    print(f'{fonts.CYAN + fonts.BOLD}Public link:{fonts.END} {folder.get("webViewLink")}')
     return folder.get("webViewLink")
