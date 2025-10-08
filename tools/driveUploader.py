@@ -76,9 +76,9 @@ def upload_file(file_path, folder_id):
     }
     media = MediaFileUpload(file_path)
     file = drive_service.files().create(body=file_metadata, media_body=media, fields='id, name').execute()
-    print(f'{fonts.CYAN + fonts.BOLD}Uploaded file{fonts.END} "{file_path}" to folder ID: {folder_id} with File ID: {file.get("id")}')
     os.remove(file_path)
-    print(f'{fonts.CYAN + fonts.BOLD}Local file "{file_path}" deleted after upload.{fonts.END}')
+    print(f'{fonts.CYAN + fonts.BOLD}Uploaded file{fonts.END} "{file_path}" {fonts.CYAN + fonts.BOLD}to folder ID:{fonts.END} {folder_id} {fonts.CYAN + fonts.BOLD}with File ID:{fonts.END} {file.get("id")}')
+    print(f'{fonts.CYAN + fonts.BOLD}Local file {fonts.END}"{file_path}" {fonts.CYAN + fonts.BOLD}deleted after upload.{fonts.END}')
     return file.get('id')
 
 def make_folder_public(folder_id):

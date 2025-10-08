@@ -12,7 +12,7 @@ It takes a link to a Spotify song, playlist or album and downloads the songs as 
 
 3. Navigate into the directory and install the [dependencies](#dependencies). Set up the API Keys as shown in .env.example
 
-4. Run the setup.py file in the root directory **AFTER** setting up the [Requirements](#requirements).Set the printed id in the .env.example file.
+4. Run the setup.py file in the root directory **AFTER** setting up the [Requirements](#requirements). Set the printed id in the .env.example file.
 
 5. Rename .env.example to .env
 
