@@ -70,7 +70,6 @@ deactivate
 4. Go to OAuth and Clients and create a new one
 5. Download the json and save it in the root directory as google_drive_secret.json
 6. Go back into OAuth and then Targetgroup and add yourself as Test User.
-7.
 
 # Dependencies
 

@@ -1,10 +1,9 @@
 import os
-import io
 from dotenv import load_dotenv
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import yt_dlp
-from mutagen.flac import FLAC, Picture
+from mutagen.flac import FLAC
 import tools.driveUploader as driveUploader
 from tools.consoleStyling import fonts
 
